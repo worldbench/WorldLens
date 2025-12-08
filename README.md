@@ -70,40 +70,179 @@ If you find this work helpful for your research, please kindly consider citing o
 
 
 ## Outline
-- [Installation](#gear-installation)
-- [Data Preparation](#hotsprings-data-preparation)
-- [Getting Started](#rocket-getting-started)
-- [WorldLens Benchmark](#earth_asia-worldlens-benchmark)
-- [TODO List](#memo-todo-list)
+- [Updates](#updates)
+- [Outline](#outline)
+- [:gear: Installation](#gear-installation)
+- [:hotsprings: Data Preparation](#hotsprings-data-preparation)
+- [:rocket: Getting Started](#rocket-getting-started)
+- [Visualization](#visualization)
+- [:earth\_asia: WorldLens Benchmark](#earth_asia-worldlens-benchmark)
+- [:memo: TODO List](#memo-todo-list)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
 
 
 
 ## :gear: Installation
-For details related to installation and environment setups, kindly refer to [INSTALL.md](docs/INSTALL.md).
 
+WorldLens is developed and tested under Python 3.9 + CUDA 11.8.
+We recommend using conda to manage the environment.
+
+- Create Environment
+```shell
+conda create -n worldbench python=3.9.20
+conda activate worldbench
+```
+
+- Install PyTorch
+```shell
+pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 \
+    --index-url https://download.pytorch.org/whl/cu118
+```
+
+- Install MMCV (with CUDA)
+```shell
+cd worldbench/third_party/mmcv-1.6.0
+MMCV_WITH_OPS=1 pip install -e .
+```
+
+> **Note**:
+We modified the C++ standard to C++17 for better compatibility.
+You may adjust it in worldbench/third_party/mmcv-1.6.0/setup.py based on your system.
+
+- Install MMSegmentation
+```shell
+pip install https://github.com/open-mmlab/mmsegmentation/archive/refs/tags/v0.30.0.zip
+```
+
+- Install MMDetection
+```shell
+pip install mmdet==2.28.2
+```
+
+- Install BEVFusion-based MMDet3D
+```shell
+git clone --recursive https://github.com/worldbench/dev-evalkit.git
+cd worldbench/third_party/bevfusion
+python setup.py develop
+```
+> Additional Notes:
+> 1. C++ standard was updated to C++17.
+> 2. We modified the sparse convolution import logic at
+`worldbench/third_party/bevfusion/mmdet3d/ops/spconv/conv.py.`
+
+- Install MMDetection3D (v1.0.0rc6)
+```shell
+cd worldbench/third_party/mmdetection3d-1.0.0rc6
+pip install -v -e .
+```
+Required dependency versions:
+```shell
+numpy == 1.23.5
+numba == 0.53.0
+```
+
+- Pretrained Models
+WorldLens relies on several pretrained models (e.g., CLIP, segmentation, depth networks). Please download them from [HuggingFace](https://huggingface.co/datasets/worldbench/videogen/tree/main/pretrained_models) and place them under: `./pretrained_models/`
 
 
 ## :hotsprings: Data Preparation
-Kindly refer to [DATA_PREPARE.md](docs/DATA_PREPARE.md) for more details on preparing the datasets and generated videos.
+Here we take nuScenes as an example.
+Required Files
+- nuScenes official dataset
+- 12 Hz interpolated annotations from [ECCV 2024 Workshop – CODA Track 2](https://coda-dataset.github.io/w-coda2024/track2/)
+- Tracking & temporal .pkl files from [HuggingFace – WorldLens Data Preparation](https://huggingface.co/datasets/worldbench/videogen/tree/main/data_preparation)
 
-
+**Final Directory Structure**
+```Shell
+data
+├── nuscenes
+│   ├── can_bus
+│   ├── lidarseg
+│   ├── maps
+│   ├── occ3d
+│   ├── samples
+│   ├── sweeps
+│   ├── v1.0-mini
+│   └── v1.0-trainval
+├── nuscenes_map_aux_12Hz_interp
+│   └── val_200x200_12Hz_interp.h5
+├── nuscenes_mmdet3d-12Hz
+│   ├── nuscenes_interp_12Hz_dbinfos_train.pkl
+│   ├── nuscenes_interp_12Hz_infos_track2_eval.pkl
+│   ├── nuscenes_interp_12Hz_infos_train.pkl
+│   └── nuscenes_interp_12Hz_infos_val.pkl
+├── nuscenes_mmdet3d-12Hz_description
+│   ├── nuscenes_interp_12Hz_updated_description_train.pkl
+│   └── nuscenes_interp_12Hz_updated_description_val.pkl
+├── nuscenes_mmdet3d_2
+│   └── nuscenes_infos_temporal_val_3keyframes.pkl
+└── nuscenes_track
+    ├── ada_track_infos_train.pkl
+    └── ada_track_infos_val.pkl
+```
 
 ## :rocket: Getting Started
-To learn more usage of this codebase, kindly refer to [GET_STARTED.md](docs/GET_STARTED.md).
+- Configure Metrics
 
+All evaluation metrics are defined in a unified YAML format under `tools/configs/.`
+Example: Temporal (Depth) Consistency:
+```yaml
+temporal_consistency:
+  - name: temporal_consistency
+    method_name: ${method_name}
+    need_preprocessing: true
+    repeat_times: 1
+    local_save_path: pretrained_models/clip/ViT-B-32.pt
+```
+
+- Run Evaluation
+```shell
+bash tools/scripts/evaluate.sh $TASK $METHOD_NAME
+```
+- Example: evaluating MagicDrive (video-based world model)
+```shell
+bash tools/scripts/evaluate.sh videogen magicdrive
+```
+
+## Visualization
 
 
 ## :earth_asia: WorldLens Benchmark
+- Prepare Generated Results
+Download model outputs from [HuggingFace](https://huggingface.co/datasets/worldbench/videogen/tree/main/nuscenes) and move them to:
+```shell
+./generated_results
+├── dist4d
+├── dreamforge
+├── drivedreamer2
+├── gt
+├── magicdrive
+├── opendwm
+└── xscene
+    └── video_submission
+```
 
+- Visualization Tools
+  - Multi-view Panorama Viewer (Cross-view Consistency)
+  ```shell
+  python tools/showcase/video_multi_view_app.py
+  ```
 
+  - Method-to-Method Comparison
+  ```shell
+  python tools/showcase/video_method_compare_app.py
+  ```
 
+  - GIF-based Comparison
+  ```shell
+  python tools/showcase/gif_method_compare_app.py
+  ```
 
 ## :memo: TODO List
 - [x] Initial release. 🚀
-- [ ] . . .
-
+- [ ] Support additional datasets (Waymo, Argoverse)
+- [ ] Add agent-based automatic evaluators
 
 
 ## License
