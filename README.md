@@ -206,9 +206,6 @@ bash tools/scripts/evaluate.sh videogen magicdrive
 ```
 
 ## Visualization
-
-
-## :earth_asia: WorldLens Benchmark
 - Prepare Generated Results
 Download model outputs from [HuggingFace](https://huggingface.co/datasets/worldbench/videogen/tree/main/nuscenes) and move them to:
 ```shell
@@ -238,6 +235,9 @@ Download model outputs from [HuggingFace](https://huggingface.co/datasets/worldb
   ```shell
   python tools/showcase/gif_method_compare_app.py
   ```
+
+## :earth_asia: WorldLens Benchmark
+
 
 ## :memo: TODO List
 - [x] Initial release. 🚀
