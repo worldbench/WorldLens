@@ -9,7 +9,7 @@
   </h1>
 
   <p align="center">
-    <strong>WorldBench Team</strong> 
+    <strong>:earth_asia: WorldBench Team</strong> 
   </p>
 
   <p align="center">
@@ -31,6 +31,13 @@
 
 | <img src="docs/figures/teaser.png" alt="teaser" width="100%"> |
 | :-: |
+
+### :grey_question: Is your driving world model an all-around player? 
+
+- This work presents `WorldLens`, a unified benchmark encompassing evaluations on $^1$**Generation**, $^2$**Reconstruction**, $^3$**Action-Following**, $^4$**Downstream Task**, and $^5$**Human Preference**, across **a total of 24 dimensions** spanning visual realism, geometric consistency, functional reliability, and perceptual alignment.
+- We observe no single model dominates across all axes, highlighting the need for balanced progress toward physically and behaviorally realistic world modeling.
+- For additional visual examples, kindly refer to our :earth_asia: [Project Page](https://worldbench.github.io/worldlens).
+
 
 
 
@@ -57,6 +64,7 @@ If you find this work helpful for your research, please kindly consider citing o
 
 ## Updates
 
+- **[12/2025]** - A comprehensive review of 3D and 4D world models is avaliable at :hugs: [`awesome-3d-4d-world-models`](https://github.com/worldbench/awesome-3d-4d-world-models).
 - **[12/2025]** - The [Project Page](https://e-flare.github.io) is online. :rocket:
 
 
