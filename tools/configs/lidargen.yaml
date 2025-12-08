@@ -1,0 +1,4 @@
+dimensions:
+  perceptual_fidelity:
+    - name: fvd
+      method: videogpt

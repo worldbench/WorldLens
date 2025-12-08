@@ -1,0 +1,3 @@
+[submodule "worldbench/third_party/dino"]
+	path = worldbench/third_party/dino
+	url = https://github.com/facebookresearch/dino

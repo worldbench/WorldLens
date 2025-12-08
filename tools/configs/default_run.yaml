@@ -1,0 +1,14 @@
+hydra:
+  run:
+    dir: ${output_dir}
+  output_subdir: ${output_dir}/code/hydra
+
+defaults:
+  - _self_
+  - experiment
+  - videogen@videogen
+  - lidargen@lidargen
+  - occgen@occ@occgen
+
+method_name: ??? # need be set in the command line
+generated_data_path: generated_results

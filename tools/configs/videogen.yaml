@@ -1,0 +1,110 @@
+
+# TODO: clip, dino
+
+dimensions:
+  # generation:
+    # perceptual_fidelity:
+    #   - name: fvd
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     method: videogpt
+    #     generated_data_path: ${generated_data_path}
+    #     pretrained_model_path: pretrained_models/fvd/i3d_pretrained_400.pt
+    #     data_info_path: data/nuscenes_mmdet3d-12Hz/nuscenes_interp_12Hz_infos_track2_eval.pkl
+
+    # object_coherence:
+    #   - name: object_coherence
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     generation_times: 4
+    #     repeat_times: 1
+    
+    # depth_consistency:
+    #   - name: depth_consistency
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     generation_times: 4
+    #     repeat_times: 1
+
+    # temporal_consistency:
+    #   - name: temporal_consistency
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     repeat_times: 1
+    #     local_save_path: pretrained_models/clip/ViT-B-32.pt
+    
+    # temporal_semantic_consistency:
+    #   - name: temporal_semantic_consistency
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     repeat_times: 1
+
+    # subject_consistency:
+    #   - name: subject_consistency
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     repeat_times: 1
+    #     local_save_path: pretrained_models/dino/dino_vitbase16_pretrain.pth
+
+  downstream:
+  #   object_detection:
+  #     - name: bev_seg_od
+  #       method_name: ${method_name}
+  #       need_preprocessing: true
+  #       generated_data_path: ${generated_data_path}
+  #       data_info_path: data/nuscenes_mmdet3d_2/nuscenes_infos_temporal_val_3keyframes.pkl
+  #       generation_times: 1
+  #       max_workers: 8
+  #       repeat_times: 1
+
+    # object_detection:
+    #   - name: bev_seg_od_full
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     generated_data_path: ${generated_data_path}
+    #     data_info_path: data/nuscenes_mmdet3d-12Hz/nuscenes_interp_12Hz_infos_val.pkl
+    #     generation_times: 1
+    #     max_workers: 8
+    #     repeat_times: 1
+
+
+    occ_prediction:
+      - name: occ_prediction
+        method_name: ${method_name}
+        need_preprocessing: true
+        generated_data_path: ${generated_data_path}
+        data_info_path: data/nuscenes_mmdet3d_2/nuscenes_infos_temporal_val_3keyframes.pkl
+        generation_times: 1
+        max_workers: 8
+        repeat_times: 1
+
+  # reconstruction:
+  
+    # novel_view_fidelity:
+    #   - name: novel_view_fidelity
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     method: videogpt
+    #     generated_data_path: ${generated_data_path}
+    #     pretrained_model_path: pretrained_models/fvd/i3d_pretrained_400.pt
+    #     data_info_path: data/nuscenes_mmdet3d-12Hz/nuscenes_interp_12Hz_infos_track2_eval.pkl
+
+    # novel_view_fidelity:
+    #   - name: novel_view_fidelity
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     generated_data_path: ${generated_data_path}
+
+    # novel_view_consistency:
+    #   - name: novel_view_consistency
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     repeat_times: 1
+    #     local_save_path: pretrained_models/dino/dino_vitbase16_pretrain.pth
+
+    # novel_view_consistency:
+    #   - name: novel_view_consistency
+    #     method_name: ${method_name}
+    #     need_preprocessing: true
+    #     repeat_times: 1
+    #     local_save_path: pretrained_models/clip/ViT-B-32.pt

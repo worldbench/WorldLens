@@ -1,0 +1,2 @@
+# from .novel_view_fidelity_fvd import NOVEL_VIEW_FIDELITY_FVD as NOVEL_VIEW_FIDELITY
+from .novel_view_fidelity_iq import NOVEL_VIEW_FIDELITY_IQ as NOVEL_VIEW_FIDELITY
