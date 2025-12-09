@@ -64,29 +64,32 @@ If you find this work helpful for your research, please kindly consider citing o
 
 ## Updates
 
-- **[12/2025]** - A comprehensive review of 3D and 4D world models is avaliable at :hugs: [`awesome-3d-4d-world-models`](https://github.com/worldbench/awesome-3d-4d-world-models).
+- **[12/2025]** - A collection of 3D and 4D world models is avaliable at :hugs: [`awesome-3d-4d-world-models`](https://github.com/worldbench/awesome-3d-4d-world-models).
 - **[12/2025]** - The [Project Page](https://e-flare.github.io) is online. :rocket:
 
 
 
 ## Outline
-- [Updates](#updates)
-- [Outline](#outline)
-- [:gear: Installation](#gear-installation)
-- [:hotsprings: Data Preparation](#hotsprings-data-preparation)
-- [:rocket: Getting Started](#rocket-getting-started)
-- [Visualization](#visualization)
-- [:earth\_asia: WorldLens Benchmark](#earth_asia-worldlens-benchmark)
-- [:memo: TODO List](#memo-todo-list)
+- [WorldLens Benchmark](#earth_asia-worldlens-benchmark)
+- [Installation](#gear-installation)
+- [Data Preparation](#hotsprings-data-preparation)
+- [Getting Started](#rocket-getting-started)
+- [WorldLens-Agent](#robot-worldlens-agent)
+- [TODO List](#memo-todo-list)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
 
 
 
+## :earth_asia: WorldLens Benchmark
+
+
+
+
+
 ## :gear: Installation
 
-WorldLens is developed and tested under Python 3.9 + CUDA 11.8.
-We recommend using conda to manage the environment.
+WorldLens is developed and tested under Python 3.9 + CUDA 11.8. We recommend using Conda to manage the environment.
 
 - Create Environment
 ```shell
@@ -107,8 +110,7 @@ MMCV_WITH_OPS=1 pip install -e .
 ```
 
 > **Note**:
-We modified the C++ standard to C++17 for better compatibility.
-You may adjust it in worldbench/third_party/mmcv-1.6.0/setup.py based on your system.
+We modified the C++ standard to C++17 for better compatibility. You may adjust it in worldbench/third_party/mmcv-1.6.0/setup.py based on your system.
 
 - Install MMSegmentation
 ```shell
@@ -144,6 +146,8 @@ numba == 0.53.0
 
 - Pretrained Models
 WorldLens relies on several pretrained models (e.g., CLIP, segmentation, depth networks). Please download them from [HuggingFace](https://huggingface.co/datasets/worldbench/videogen/tree/main/pretrained_models) and place them under: `./pretrained_models/`
+
+
 
 
 ## :hotsprings: Data Preparation
@@ -182,6 +186,8 @@ data
     └── ada_track_infos_val.pkl
 ```
 
+
+
 ## :rocket: Getting Started
 - Configure Metrics
 
@@ -205,7 +211,9 @@ bash tools/scripts/evaluate.sh $TASK $METHOD_NAME
 bash tools/scripts/evaluate.sh videogen magicdrive
 ```
 
-## Visualization
+
+
+### Visualizations
 - Prepare Generated Results
 Download model outputs from [HuggingFace](https://huggingface.co/datasets/worldbench/videogen/tree/main/nuscenes) and move them to:
 ```shell
@@ -236,17 +244,29 @@ Download model outputs from [HuggingFace](https://huggingface.co/datasets/worldb
   python tools/showcase/gif_method_compare_app.py
   ```
 
-## :earth_asia: WorldLens Benchmark
+
+
+
+
+## :robot: WorldLens-Agent
+
+
+
 
 
 ## :memo: TODO List
 - [x] Initial release. 🚀
-- [ ] Support additional datasets (Waymo, Argoverse)
+- [ ] Release the WorldLens-26K dataset.
+- [ ] Support additional datasets (Waymo, Argoverse, and more)
 - [ ] Add agent-based automatic evaluators
+- [ ] . . .
+
+
 
 
 ## License
 This work is under the <a rel="license" href="https://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a>, while some specific implementations in this codebase might be under other licenses. Kindly refer to [LICENSE.md](docs/LICENSE.md) for a more careful check, if you are using our code for commercial matters.
+
 
 
 
