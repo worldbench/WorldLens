@@ -65,7 +65,7 @@ If you find this work helpful for your research, please kindly consider citing o
 ## Updates
 
 - **[12/2025]** - A collection of 3D and 4D world models is avaliable at :hugs: [`awesome-3d-4d-world-models`](https://github.com/worldbench/awesome-3d-4d-world-models).
-- **[12/2025]** - The [Project Page](https://e-flare.github.io) is online. :rocket:
+- **[12/2025]** - The [Project Page](https://worldbench.github.io/worldlens) is online. :rocket:
 
 
 
@@ -90,7 +90,7 @@ If you find this work helpful for your research, please kindly consider citing o
 
 - Each aspect is decomposed into fine-grained, interpretable dimensions, forming a comprehensive framework that bridges human perception, physical reasoning, and downstream utility.
 
-For additional details and visual examples, kindly refer to our [Project Page](https://e-flare.github.io).
+For additional details and visual examples, kindly refer to our [Project Page](https://worldbench.github.io/worldlens).
 
 
 
