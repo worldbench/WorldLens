@@ -90,7 +90,7 @@ If you find this work helpful for your research, please kindly consider citing o
 
 - Each aspect is decomposed into fine-grained, interpretable dimensions, forming a comprehensive framework that bridges human perception, physical reasoning, and downstream utility.
 
-For additional details and visual examples, kindly refer to our [Project Page](https://worldbench.github.io/worldlens).
+For additional details and visual examples, kindly refer to our :earth_asia: [Project Page](https://worldbench.github.io/worldlens).
 
 
 
