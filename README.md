@@ -13,7 +13,7 @@
   </p>
 
   <p align="center">
-    <a href="" target='_blank'>
+    <a href="https://worldbench.github.io/assets_common/papers/worldlens.pdf" target='_blank'>
       <img src="https://img.shields.io/badge/Paper-%F0%9F%93%96-darkred">
     </a>&nbsp;
     <a href="https://worldbench.github.io/worldlens" target='_blank'>
