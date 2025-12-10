@@ -83,13 +83,22 @@ If you find this work helpful for your research, please kindly consider citing o
 
 ## :earth_asia: WorldLens Benchmark
 
+| <img src="docs/figures/bench.png" alt="framework" width="100%">|
+| :-: |
+
+- Generative world models must go beyond visual realism to achieve geometric consistency, physical plausibility, and functional reliability. `WorldLens` is a unified benchmark that evaluates these capabilities across five complementary aspects - from low-level appearance fidelity to high-level behavioral realism.
+
+- Each aspect is decomposed into fine-grained, interpretable dimensions, forming a comprehensive framework that bridges human perception, physical reasoning, and downstream utility.
+
+For additional details and visual examples, kindly refer to our [Project Page](https://e-flare.github.io).
+
 
 
 
 
 ## :gear: Installation
 
-WorldLens is developed and tested under Python 3.9 + CUDA 11.8. We recommend using Conda to manage the environment.
+The `WorldLens` evaluation toolkit is developed and tested under Python 3.9 + CUDA 11.8. We recommend using Conda to manage the environment.
 
 - Create Environment
 ```shell
