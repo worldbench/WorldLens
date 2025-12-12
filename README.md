@@ -75,9 +75,11 @@ If you find this work helpful for your research, please kindly consider citing o
 
 ## Outline
 - [WorldLens Benchmark](#earth_asia-worldlens-benchmark)
+- [WorldLens Leaderboard](#balance_scale-worldlens-leaderboard)
 - [Installation](#gear-installation)
 - [Data Preparation](#hotsprings-data-preparation)
 - [Getting Started](#rocket-getting-started)
+- [WorldLens-26K](#hugs-worldlens-26k)
 - [WorldLens-Agent](#robot-worldlens-agent)
 - [TODO List](#memo-todo-list)
 - [License](#license)
@@ -100,16 +102,17 @@ For additional details and visual examples, kindly refer to our :books: [Paper](
 
 ## :balance_scale: WorldLens Leaderboard
 
-| | | |
+||||
 |:-:|:-:|:-|
 | <img src="docs/icons/generation.gif" width="100"> | Generation | Measuring whether a model can synthesize visually realistic, temporally stable, and semantically consistent scenes. Even state-of-the-art models that achieve low perceptual error (e.g., LPIPS, FVD) often suffer from view flickering or motion instability, revealing the limits of current diffusion-based architectures.
 | <img src="docs/icons/reconstruction.gif" width="100"> | Reconstruction | Probing whether generated videos can be reprojected into a coherent 4D scene using differentiable rendering. Models that appear sharp in 2D frequently collapse when reconstructed, producing geometric "floaters": a gap that exposes how temporal coherence remains weakly coupled in most pipelines.
 | <img src="docs/icons/action-following.gif" width="100"> | Action-Following | Testing if a pre-trained action planner can operate safely inside the generated world. High open-loop realism does not guarantee safe closed-loop control; almost all existing world models trigger collisions or off-road drifts, underscoring that photometric realism alone cannot yield functional fidelity.
 | <img src="docs/icons/downstream.gif" width="100"> | Downstream Task | Evaluating whether the synthetic data support downstream perception models trained on real-world datasets. Even visually appealing worlds may degrade detection or segmentation accuracy by 30-50%, highlighting that alignment to task distributions, not just image quality, is vital for practical usability.
 | <img src="docs/icons/human-preference.gif" width="100"> | Human Preference | Capturing subjective scores such as world realism, physical plausibility, and behavioral safety through large-scale human annotations. Our study reveals that models with strong geometric consistency are generally rated as more "real", confirming that perceptual fidelity is inseparable from structural coherence.
+||||
 
+### Leaderboard
 An interactive :balance_scale: [WorldLens Leaderboard](https://huggingface.co/spaces/worldbench/WorldLens) is online at :hugs: HuggingFace Spaces. We invite researchers and practitioners to submit their models for evaluation on the leaderboard, enabling consistent comparison and supporting progress in world model research.
-
 
 
 ## :gear: Installation
@@ -271,11 +274,15 @@ Download model outputs from [HuggingFace](https://huggingface.co/datasets/worldb
 
 
 
+## :hugs: WorldLens-26K
+
+To be updated.
+
 
 
 ## :robot: WorldLens-Agent
 
-To be added.
+To be updated.
 
 
 
@@ -288,10 +295,8 @@ To be added.
 
 
 
-
 ## License
 This work is under the <a rel="license" href="https://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a>, while some specific implementations in this codebase might be under other licenses. Kindly refer to [LICENSE.md](docs/LICENSE.md) for a more careful check, if you are using our code for commercial matters.
-
 
 
 
@@ -300,4 +305,17 @@ This work is under the <a rel="license" href="https://www.apache.org/licenses/LI
 To be added.
 
 
+## Related Projects
+
+
+| :sunglasses: Awesome | Projects |
+|:-:|:-|
+| |
+| <img width="95px" src="https://github.com/ldkong1205/ldkong1205/blob/master/Images/worldbench_survey.webp"> | **3D and 4D World Modeling: A Survey**<br>[[GitHub Repo](https://github.com/worldbench/survey)] - [[Project Page](https://worldbench.github.io/survey)] - [[Paper](https://worldbench.github.io/assets_common/papers/survey.pdf)] |
+| <img width="95px" src="https://github.com/ldkong1205/ldkong1205/blob/master/Images/lidarcrafter.png"> | **LiDARCrafter: Dynamic 4D World Modeling from LiDAR Sequences**<br>[[GitHub Repo](https://github.com/lidarcrafter/toolkit)] - [[Project Page]](https://lidarcrafter.github.io/) - [[Paper](https://arxiv.org/abs/2508.03692)] |
+| <img width="95px" src="https://github.com/ldkong1205/ldkong1205/blob/master/Images/3eed.png"> | **3EED: Ground Everything Everywhere in 3D**<br>[[GitHub Repo](https://github.com/worldbench/3EED)] - [[Project Page]](https://project-3eed.github.io/) - [[Paper](https://arxiv.org/abs/2511.01755)] |
+| <img width="95px" src="https://github.com/ldkong1205/ldkong1205/blob/master/Images/drivebench.png"> | **Are VLMs Ready for Autonomous Driving? A Study from Reliability, Data & Metric Perspectives**<br>[[GitHub Repo](https://github.com/drive-bench/toolkit)] - [[Project Page]](https://drive-bench.github.io/) - [[Paper](https://arxiv.org/abs/2501.04003)] |
+| <img width="95px" src="https://github.com/ldkong1205/ldkong1205/blob/master/Images/pi3det.png"> | **Perspective-Invariant 3D Object Detection**<br>[[GitHub Repo](https://github.com/pi3det/toolkit)] - [[Project Page]](https://pi3det.github.io/) - [[Paper](https://arxiv.org/abs/2507.17665)] |
+| <img width="95px" src="https://github.com/ldkong1205/ldkong1205/blob/master/Images/dynamiccity.webp"> | **DynamicCity: Large-Scale 4D Occupancy Generation from Dynamic Scenes**<br>[[GitHub Repo](https://github.com/3DTopia/DynamicCity)] - [[Project Page]](https://dynamic-city.github.io/) - [[Paper](https://arxiv.org/abs/2410.18084)] |
+| |
 
