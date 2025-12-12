@@ -67,6 +67,7 @@ If you find this work helpful for your research, please kindly consider citing o
 
 ## Updates
 
+- **[12/2025]** - The official :balance_scale: [WorldLens Leaderboard](https://huggingface.co/spaces/worldbench/WorldLens) is online at HuggingFace Spaces. We invite researchers and practitioners to submit their models for evaluation on the leaderboard, enabling consistent comparison and supporting progress in world model research.
 - **[12/2025]** - A collection of 3D and 4D world models is avaliable at :hugs: [`awesome-3d-4d-world-models`](https://github.com/worldbench/awesome-3d-4d-world-models).
 - **[12/2025]** - The [Project Page](https://worldbench.github.io/worldlens) is online. :rocket:
 
@@ -97,9 +98,17 @@ For additional details and visual examples, kindly refer to our :books: [Paper](
 
 
 
-## :hugs: WorldLens Leaderboard
+## :balance_scale: WorldLens Leaderboard
 
+| | | |
+|:-:|:-:|:-|
+| <img src="docs/icons/generation.gif" width="100"> | Generation | Measuring whether a model can synthesize visually realistic, temporally stable, and semantically consistent scenes. Even state-of-the-art models that achieve low perceptual error (e.g., LPIPS, FVD) often suffer from view flickering or motion instability, revealing the limits of current diffusion-based architectures.
+| <img src="docs/icons/reconstruction.gif" width="100"> | Reconstruction | Probing whether generated videos can be reprojected into a coherent 4D scene using differentiable rendering. Models that appear sharp in 2D frequently collapse when reconstructed, producing geometric "floaters": a gap that exposes how temporal coherence remains weakly coupled in most pipelines.
+| <img src="docs/icons/action-following.gif" width="100"> | Action-Following | Testing if a pre-trained action planner can operate safely inside the generated world. High open-loop realism does not guarantee safe closed-loop control; almost all existing world models trigger collisions or off-road drifts, underscoring that photometric realism alone cannot yield functional fidelity.
+| <img src="docs/icons/downstream.gif" width="100"> | Downstream Task | Evaluating whether the synthetic data support downstream perception models trained on real-world datasets. Even visually appealing worlds may degrade detection or segmentation accuracy by 30-50%, highlighting that alignment to task distributions, not just image quality, is vital for practical usability.
+| <img src="docs/icons/human-preference.gif" width="100"> | Human Preference | Capturing subjective scores such as world realism, physical plausibility, and behavioral safety through large-scale human annotations. Our study reveals that models with strong geometric consistency are generally rated as more "real", confirming that perceptual fidelity is inseparable from structural coherence.
 
+An interactive :balance_scale: [WorldLens Leaderboard](https://huggingface.co/spaces/worldbench/WorldLens) is online at :hugs: HuggingFace Spaces. We invite researchers and practitioners to submit their models for evaluation on the leaderboard, enabling consistent comparison and supporting progress in world model research.
 
 
 
