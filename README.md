@@ -51,7 +51,7 @@ If you find this work helpful for your research, please kindly consider citing o
 @article{worldlens,
     title   = {{WorldLens}: Full-Spectrum Evaluations of Driving World Models in Real World},
     author  = {Ao Liang and Lingdong Kong and Tianyi Yan and Hongsi Liu and Wesley Yang and Ziqi Huang and Wei Yin and Jialong Zuo and Yixuan Hu and Dekai Zhu and Dongyue Lu and Youquan Liu and Guangfeng Jiang and Linfeng Li and Xiangtai Li and Long Zhuo and Lai Xing Ng and Benoit R. Cottereau and Changxin Gao and Liang Pan and Wei Tsang Ooi and Ziwei Liu},
-    journal = {arXiv preprint arXiv:2512.xxxxx}
+    journal = {arXiv preprint arXiv:2512.10958}
     year    = {2025}
 }
 ```
