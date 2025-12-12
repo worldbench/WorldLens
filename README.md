@@ -112,7 +112,25 @@ For additional details and visual examples, kindly refer to our :books: [Paper](
 ||||
 
 ### Leaderboard
+
 An interactive :balance_scale: [WorldLens Leaderboard](https://huggingface.co/spaces/worldbench/WorldLens) is online at :hugs: HuggingFace Spaces. We invite researchers and practitioners to submit their models for evaluation on the leaderboard, enabling consistent comparison and supporting progress in world model research.
+
+<details open>
+<summary>&nbsp<b>Benchmarked Models</b></summary>
+
+> - [x] **[MagicDrive](), ICLR 2023.**
+> - [x] **[Panacea](), CVPR 2024.**
+> - [x] **[DreamForge](), arXiv 2024.**
+> - [x] **[DriveDreamer-2](), AAAI 2025.**
+> - [x] **[DrivingSphere](), CVPR 2025.**
+> - [x] **[OpenDWM](), CVPR 2025.**
+> - [x] **[MagicDrive-V2](), ICCV 2025.**
+> - [x] **[DiST-4D](), ICCV 2025.**
+> - [x] **[RLGF](), NeurIPS 2025.**
+> - [x] **[X-Scene](), NeurIPS 2025.**
+> - [ ] . . .
+
+</details>
 
 
 ## :gear: Installation
