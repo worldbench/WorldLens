@@ -74,16 +74,21 @@ If you find this work helpful for your research, please kindly consider citing o
 
 
 ## Outline
-- [WorldLens Benchmark](#earth_asia-worldlens-benchmark)
-- [WorldLens Leaderboard](#balance_scale-worldlens-leaderboard)
-- [Installation](#gear-installation)
-- [Data Preparation](#hotsprings-data-preparation)
-- [Getting Started](#rocket-getting-started)
-- [WorldLens-26K](#hugs-worldlens-26k)
-- [WorldLens-Agent](#robot-worldlens-agent)
-- [TODO List](#memo-todo-list)
+- [Updates](#updates)
+- [Outline](#outline)
+- [:earth\_asia: WorldLens Benchmark](#earth_asia-worldlens-benchmark)
+- [:balance\_scale: WorldLens Leaderboard](#balance_scale-worldlens-leaderboard)
+  - [Leaderboard](#leaderboard)
+- [:gear: Installation](#gear-installation)
+- [:hotsprings: Data Preparation](#hotsprings-data-preparation)
+- [:rocket: Getting Started](#rocket-getting-started)
+  - [Visualizations](#visualizations)
+- [:hugs: WorldLens-26K](#hugs-worldlens-26k)
+- [:robot: WorldLens-Agent](#robot-worldlens-agent)
+- [:memo: TODO List](#memo-todo-list)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
+- [Related Projects](#related-projects)
 
 
 
@@ -170,7 +175,7 @@ pip install mmdet==2.28.2
 
 - Install BEVFusion-based MMDet3D:
 ```shell
-git clone --recursive https://github.com/worldbench/dev-evalkit.git
+git clone --recursive https://github.com/worldbench/WorldLens.git
 cd worldbench/third_party/bevfusion
 python setup.py develop
 ```
