@@ -74,8 +74,6 @@ If you find this work helpful for your research, please kindly consider citing o
 
 
 ## Outline
-- [Updates](#updates)
-- [Outline](#outline)
 - [WorldLens Benchmark](#earth_asia-worldlens-benchmark)
 - [WorldLens Leaderboard](#balance_scale-worldlens-leaderboard)
 - [Installation](#gear-installation)
