@@ -20,11 +20,17 @@ def novel_view_groups(
         if clip_list is None:
             clip_list = sorted(path.name for path in root.iterdir() if path.is_dir())
         groups = {}
+        missing = []
         for clip in clip_list:
             video_dir = root / str(clip)
             videos = sorted(str(path) for path in video_dir.glob("*.mp4"))
             if videos:
                 groups[str(clip)] = videos
+            else:
+                missing.append(str(video_dir))
+        if missing:
+            details = "\n".join(f"- {path}" for path in missing[:20])
+            raise FileNotFoundError(f"Missing novel-view videos for requested clips:\n{details}")
         if not groups:
             raise FileNotFoundError(f"No novel-view videos found under {root}")
         return groups

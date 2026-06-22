@@ -6,6 +6,8 @@ import numpy as np
 
 
 def _clip_ids(clips):
+    if clips is None:
+        return None
     return [str(clip) for clip in clips]
 
 
@@ -29,7 +31,26 @@ def _load_mask(path, shape):
         return None
     mask = np.asarray(Image.open(path).convert("L")) > 0
     if mask.shape != shape[:2]:
-        mask = np.asarray(Image.fromarray(mask.astype(np.uint8) * 255).resize((shape[1], shape[0]), Image.NEAREST)) > 0
+        mask = _resize_mask_nearest(mask, shape[:2])
+    return mask
+
+
+def _resize_mask_nearest(mask, target_shape):
+    if mask.shape == target_shape:
+        return mask
+    src_h, src_w = mask.shape
+    tgt_h, tgt_w = target_shape
+    if tgt_h <= 0 or tgt_w <= 0:
+        raise ValueError(f"Invalid target mask shape: {target_shape}")
+    y_idx = np.linspace(0, src_h - 1, tgt_h).round().astype(int)
+    x_idx = np.linspace(0, src_w - 1, tgt_w).round().astype(int)
+    return mask[y_idx][:, x_idx]
+
+
+def _load_required_mask(path, shape):
+    mask = _load_mask(path, shape)
+    if mask is None:
+        raise FileNotFoundError(f"Missing geometric evaluation mask: {path}")
     return mask
 
 
@@ -46,20 +67,21 @@ def _ssim(pred, gt):
     return float(structural_similarity(pred, gt, data_range=1.0, channel_axis=-1))
 
 
-def _ssim_masked(pred, gt, mask):
-    from skimage.metrics import structural_similarity
-
-    _, ssim_map = structural_similarity(pred, gt, data_range=1.0, channel_axis=-1, full=True)
-    if ssim_map.ndim == 3:
-        ssim_map = ssim_map.mean(axis=-1)
-    return float(ssim_map[mask].mean())
-
-
 def _mean(values):
     finite = [float(value) for value in values if value is not None and not np.isnan(value)]
     if not finite:
         return float("nan")
     return float(np.mean(finite))
+
+
+def _discover_clips(root, asset_type):
+    asset_root = root / asset_type
+    if not asset_root.is_dir():
+        raise FileNotFoundError(f"Missing Reconstruction {asset_type} asset directory: {asset_root}")
+    clips = sorted(path.name for path in asset_root.iterdir() if path.is_dir())
+    if not clips:
+        raise FileNotFoundError(f"No Reconstruction {asset_type} clips found under {asset_root}")
+    return clips
 
 
 class AssetPhotometricMetric:
@@ -73,7 +95,7 @@ class AssetPhotometricMetric:
     ):
         self.method_name = method_name
         self.reconstruction_root = Path(reconstruction_root)
-        self.clips = _clip_ids(clips)
+        self.clips = _clip_ids(clips) or _discover_clips(self.reconstruction_root / self.method_name, "train")
         self.compute_lpips = compute_lpips
 
     def _legacy_path(self, clip):
@@ -131,8 +153,6 @@ class AssetPhotometricMetric:
         psnr_values = []
         ssim_values = []
         lpips_values = []
-        masked_psnr_values = []
-        masked_ssim_values = []
 
         for pred_path in pred_files:
             gt_path = gt_dir / pred_path.name
@@ -146,21 +166,12 @@ class AssetPhotometricMetric:
             if lpips_value is not None:
                 lpips_values.append(lpips_value)
 
-            mask = _load_mask(clip_dir / "masks" / "all" / pred_path.with_suffix(".png").name, pred.shape)
-            if mask is not None and mask.any():
-                masked_psnr_values.append(_psnr(pred[mask], gt[mask]))
-                masked_ssim_values.append(_ssim_masked(pred, gt, mask))
-
         metrics = {
             "image_metrics/full/psnr": _mean(psnr_values),
             "image_metrics/full/ssim": _mean(ssim_values),
         }
         if lpips_values:
             metrics["image_metrics/full/lpips"] = _mean(lpips_values)
-        if masked_psnr_values:
-            metrics["image_metrics/full/masked_psnr"] = _mean(masked_psnr_values)
-        if masked_ssim_values:
-            metrics["image_metrics/full/masked_ssim"] = _mean(masked_ssim_values)
         return metrics
 
     def __call__(self):
@@ -194,7 +205,7 @@ class AssetGeometricMetric:
     ):
         self.method_name = method_name
         self.reconstruction_root = Path(reconstruction_root)
-        self.clips = _clip_ids(clips)
+        self.clips = _clip_ids(clips) or _discover_clips(self.reconstruction_root / self.method_name, "depth")
 
     def _legacy_path(self, clip):
         return self.reconstruction_root / self.method_name / "depth" / clip / "metrics.json"
@@ -233,10 +244,8 @@ class AssetGeometricMetric:
                 raise FileNotFoundError(f"Missing GT depth for {pred_path.name}: {gt_path}")
             pred = _load_depth(pred_path)
             gt = _load_depth(gt_path)
-            mask = _load_mask(clip_dir / "masks" / pred_path.with_suffix(".png").name, pred.shape)
-            valid = np.ones_like(gt, dtype=bool)
-            if mask is not None:
-                valid &= mask
+            mask = _load_required_mask(clip_dir / "masks" / pred_path.with_suffix(".png").name, pred.shape)
+            valid = mask.copy()
             if not valid.any():
                 continue
             pred_values = pred[valid]

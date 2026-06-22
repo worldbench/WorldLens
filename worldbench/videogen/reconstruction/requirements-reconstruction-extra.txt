@@ -1,0 +1,12 @@
+# Install after the base WorldLens environment.
+# Do not install the vendored DriveStudio requirements.txt directly here: it pins
+# torch/torchvision/CUDA versions that can conflict with WorldLens.
+gsplat==1.5.3
+pytorch-msssim==1.0.0
+kornia==0.7.2
+viser==0.2.1
+nerfview==0.0.3
+nvdiffrast @ git+https://github.com/NVlabs/nvdiffrast.git
+
+# PyTorch3D wheels are tied to the local torch/CUDA build. Install a matching
+# wheel separately if your WorldLens environment does not already provide it.
