@@ -7,11 +7,14 @@ import json
 import subprocess
 from pyiqa.archs.musiq_arch import MUSIQ
 from loguru import logger
-from worldbench.utils import common
 from worldbench.utils import video_relative
 from tqdm import tqdm
 import torch
 from torchvision import transforms
+from worldbench.videogen.reconstruction._novel_view_contract import (
+    novel_metric_output_dir,
+    novel_view_groups,
+)
 
 def transform(images, preprocess_mode='shorter'):
     if preprocess_mode.startswith('shorter'):
@@ -37,14 +40,16 @@ def transform(images, preprocess_mode='shorter'):
 
 class NOVEL_VIEW_FIDELITY_IQ:
     def __init__(self, method_name, 
-                 need_preprocessing = False, 
                  generated_data_path = "generated_results", 
+                 reconstruction_root = None,
+                 clips = None,
                  pretrained_model_path = "pretrained_models/musiq/musiq_spaq_ckpt-358bb6af.pth",
                  **kwargs):
         
         self.method_name = method_name
-        self.need_preprocessing = need_preprocessing
         self.generated_data_path = generated_data_path
+        self.reconstruction_root = reconstruction_root
+        self.clips = clips
         self.pretrained_model_path = pretrained_model_path
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model = self.init_model()
@@ -81,17 +86,28 @@ class NOVEL_VIEW_FIDELITY_IQ:
         return average_score, video_results
 
     def __call__(self, *args, **kwds):
-        reconstruction_video_folder = os.path.join(self.generated_data_path, self.method_name, 'reconstruction')
-        dims = os.listdir(reconstruction_video_folder)
+        groups = novel_view_groups(
+            method_name=self.method_name,
+            generated_data_path=self.generated_data_path,
+            reconstruction_root=self.reconstruction_root,
+            clips=self.clips,
+        )
+        result_dir = novel_metric_output_dir(
+            method_name=self.method_name,
+            generated_data_path=self.generated_data_path,
+            reconstruction_root=self.reconstruction_root,
+            metric_name="novel_view_fidelity",
+        )
         result = {}
-        for dim in dims:
-            result_save_path = os.path.join(self.generated_data_path, self.method_name, 'novel_view_consistency', f'{dim}_image_quality.json')
-            os.makedirs(os.path.dirname(result_save_path), exist_ok=True)
-            video_list = common.find_videos_in_dir(os.path.join(reconstruction_video_folder, dim), extension=".mp4")
+        for dim, video_list in groups.items():
+            result_save_path = result_dir / f"{dim}_image_quality.json"
+            result_save_path.parent.mkdir(parents=True, exist_ok=True)
             average_score, video_results = self.calculate_iq_metrics(video_list, **kwds)
             result[dim] = {
                 'average_score': average_score,
                 'video_results': video_results
             }
             logger.info(f"Method: {self.method_name}, Dim: {dim}, Novel View Fidelity by MUSIQ: {average_score:.4f}")
-            json.dump(result[dim], open(result_save_path, 'w'), indent=4)
+            with open(result_save_path, 'w') as f:
+                json.dump(result[dim], f, indent=4)
+        return result

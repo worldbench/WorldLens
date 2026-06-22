@@ -11,6 +11,10 @@ import torch
 from torch.nn import functional as F
 from ....utils import common, video_relative
 from worldbench.videogen.generation.temporal_consistency.utils import clip_transform
+from worldbench.videogen.reconstruction._novel_view_contract import (
+    novel_metric_output_dir,
+    novel_view_groups,
+)
 
 def optical_flow_warp(img1, img2):
     """warp img2 to img1 using optical flow"""
@@ -28,12 +32,16 @@ def optical_flow_warp(img1, img2):
 class NOVEL_VIEW_CONSISTENCY:
     def __init__(self, method_name,
                  generated_data_path="generated_results",
+                 reconstruction_root=None,
+                 clips=None,
                  repeat_times=1,
                  local_save_path=None,
                  repo_or_dir=None,
                  **kwargs):
         self.method_name = method_name
         self.generated_data_path = generated_data_path
+        self.reconstruction_root = reconstruction_root
+        self.clips = clips
         self.repeat_times = repeat_times
         self.local_save_path = local_save_path
         self.repo_or_dir = repo_or_dir
@@ -106,14 +114,21 @@ class NOVEL_VIEW_CONSISTENCY:
         return sim_per_frame, lpips_per_frame, video_results
 
     def __call__(self):
-
-        reconstruction_video_folder = os.path.join(self.generated_data_path, self.method_name, 'reconstruction')
-        dims = os.listdir(reconstruction_video_folder)
-        rel_save_path = os.path.join(self.generated_data_path, self.method_name, 'novel_view_consistency')
+        groups = novel_view_groups(
+            method_name=self.method_name,
+            generated_data_path=self.generated_data_path,
+            reconstruction_root=self.reconstruction_root,
+            clips=self.clips,
+        )
+        rel_save_path = novel_metric_output_dir(
+            method_name=self.method_name,
+            generated_data_path=self.generated_data_path,
+            reconstruction_root=self.reconstruction_root,
+            metric_name="novel_view_consistency",
+        )
         os.makedirs(rel_save_path, exist_ok=True)
-        for dim in dims:
-            video_folder_path = os.path.join(reconstruction_video_folder, dim)
-            video_list = common.find_videos_in_dir(video_folder_path, extension=".mp4")
+        all_results = {}
+        for dim, video_list in groups.items():
             sim_per_frame, lpips_per_frame, video_results = self.calculate_single_time(video_list)
             logger.info(f"Method: {self.method_name}, Dim: {dim}, Subject Consistency (per frame) by DINO: {sim_per_frame:.4f}, LPIPS: {lpips_per_frame:.4f}")
             result = {
@@ -123,7 +138,9 @@ class NOVEL_VIEW_CONSISTENCY:
                 'lpips_per_frame': lpips_per_frame,
                 'video_results': video_results
             }
+            all_results[dim] = result
             save_path = os.path.join(rel_save_path, f'{dim}.json')
             with open(save_path, 'w') as f:
                 json.dump(result, f, indent=4)
             logger.info(f"Results saved to {save_path}")
+        return all_results

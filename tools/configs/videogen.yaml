@@ -79,32 +79,29 @@ dimensions:
         repeat_times: 1
 
   # reconstruction:
-  
-    # novel_view_fidelity:
-    #   - name: novel_view_fidelity
+
+    # photometric_error:
+    #   - name: photometric_error
     #     method_name: ${method_name}
-    #     need_preprocessing: true
-    #     method: videogpt
-    #     generated_data_path: ${generated_data_path}
-    #     pretrained_model_path: pretrained_models/fvd/i3d_pretrained_400.pt
-    #     data_info_path: data/nuscenes_mmdet3d-12Hz/nuscenes_interp_12Hz_infos_track2_eval.pkl
+    #     reconstruction_root: generated_results/reconstruction
+    #     clips: ["081"]
+
+    # geometric_discrepancy:
+    #   - name: geometric_discrepancy
+    #     method_name: ${method_name}
+    #     reconstruction_root: generated_results/reconstruction
+    #     clips: ["081"]
 
     # novel_view_fidelity:
     #   - name: novel_view_fidelity
     #     method_name: ${method_name}
-    #     need_preprocessing: true
-    #     generated_data_path: ${generated_data_path}
+    #     reconstruction_root: generated_results/reconstruction
+    #     clips: ["081"]
 
     # novel_view_consistency:
     #   - name: novel_view_consistency
     #     method_name: ${method_name}
-    #     need_preprocessing: true
-    #     repeat_times: 1
-    #     local_save_path: pretrained_models/dino/dino_vitbase16_pretrain.pth
-
-    # novel_view_consistency:
-    #   - name: novel_view_consistency
-    #     method_name: ${method_name}
-    #     need_preprocessing: true
+    #     reconstruction_root: generated_results/reconstruction
+    #     clips: ["081"]
     #     repeat_times: 1
     #     local_save_path: pretrained_models/clip/ViT-B-32.pt
